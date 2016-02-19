@@ -1,0 +1,5 @@
+http\://www.autonavi.com/schema/tx/aof-tx.xsd=autonavi/online/framework/config/aof-tx.xsd
+http\://www.autonavi.com/schema/shard/aof-shard.xsd=autonavi/online/framework/config/aof-shard.xsd
+http\://www.autonavi.com/schema/configCenter/aof-cc.xsd=autonavi/online/framework/config/aof-cc.xsd
+
+http\://www.autonavi.com/schema/mapper/aof-mapper.xsd=autonavi/online/framework/builder/xml/aof-mapper.xsd

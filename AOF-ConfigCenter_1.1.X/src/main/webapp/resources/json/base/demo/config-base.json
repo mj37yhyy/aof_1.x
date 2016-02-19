@@ -1,0 +1,114 @@
+{
+    "dataSources": [
+        "java.util.HashMap",
+        {
+            "1": {
+                "beanClass": "com.mchange.v2.c3p0.ComboPooledDataSource",
+                "name": "c3p0DataSource1",
+                "props": [
+                    "java.util.HashMap",
+                    {
+                        "acquireRetryAttempts": "30",
+                        "acquireRetryDelay": "100",
+                        "maxIdleTime": "60",
+                        "testConnectionOnCheckout": "false",
+                        "breakAfterAcquireFailure": "false",
+                        "password": "93f0cb0614",
+                        "acquireIncrement": "100",
+                        "idleConnectionTestPeriod": "60",
+                        "maxPoolSize": "20000",
+                        "maxStatements": "100",
+                        "minPoolSize": "100",
+                        "driverClass": "com.mysql.jdbc.Driver",
+                        "initialPoolSize": "100",
+                        "jdbcUrl": "jdbc:mysql://10.19.3.159:3306/addresscollect?rewriteBatchedStatements=true",
+                        "user": "root"
+                    }
+                ]
+            },
+            "2": {
+                "beanClass": "com.mchange.v2.c3p0.ComboPooledDataSource",
+                "name": "c3p0DataSource2",
+                "props": [
+                    "java.util.HashMap",
+                    {
+                        "acquireRetryAttempts": "30",
+                        "acquireRetryDelay": "100",
+                        "maxIdleTime": "60",
+                        "testConnectionOnCheckout": "false",
+                        "breakAfterAcquireFailure": "false",
+                        "password": "93f0cb0614",
+                        "acquireIncrement": "100",
+                        "idleConnectionTestPeriod": "60",
+                        "maxPoolSize": "20000",
+                        "maxStatements": "100",
+                        "minPoolSize": "100",
+                        "driverClass": "com.mysql.jdbc.Driver",
+                        "initialPoolSize": "100",
+                        "jdbcUrl": "jdbc:mysql://10.19.3.160:3306/addresscollect?rewriteBatchedStatements=true",
+                        "user": "root"
+                    }
+                ]
+            },
+            "3": {
+                "beanClass": "com.atomikos.jdbc.AtomikosDataSourceBean",
+                "name": "jtaDataSource1",
+                "props": [
+                    "java.util.HashMap",
+                    {
+                        "xaProperties": [
+                            "java.util.Properties",
+                            {
+                                "URL": "jdbc:mysql://10.19.3.159:3306/addresscollect",
+                                "user": "root",
+                                "password": "93f0cb0614"
+                            }
+                        ],
+                        "maintenanceInterval": "60",
+                        "uniqueResourceName": "ds1",
+                        "maxPoolSize": "100",
+                        "minPoolSize": "10",
+                        "xaDataSourceClassName": "com.mysql.jdbc.jdbc2.optional.MysqlXADataSource",
+                        "testQuery": "select 1",
+                        "borrowConnectionTimeout": "30"
+                    }
+                ]
+            }
+        }
+    ],
+    "shardIndex": 1,
+    "indexTableMap": [
+        "java.util.HashMap",
+        {
+            "demo_index": [
+                "java.util.ArrayList",
+                [
+                    {
+                        "name": "name",
+                        "columnType": "string",
+                        "columnName": "name",
+                        "length": 100
+                    }
+                ]
+            ]
+        }
+    ],
+    "SegmentTables": [
+        "java.util.ArrayList",
+        [
+            {
+                "name": "demo",
+                "count": 2
+            }
+        ]
+    ],
+    "segmentTables": [
+        "java.util.ArrayList",
+        [
+            {
+                "name": "demo",
+                "count": 2
+            }
+        ]
+    ]
+}

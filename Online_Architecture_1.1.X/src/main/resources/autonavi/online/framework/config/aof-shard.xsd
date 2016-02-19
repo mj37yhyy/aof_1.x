@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.autonavi.com/schema/shard"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:tool="http://www.springframework.org/schema/tool"
+	targetNamespace="http://www.autonavi.com/schema/shard"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:import namespace="http://www.springframework.org/schema/beans" />
+	<xsd:import namespace="http://www.springframework.org/schema/tool" />
+
+	<xsd:element name="advice">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="beans:identifiedType">
+					<xsd:sequence>
+						<xsd:element name="shards" minOccurs="1" maxOccurs="1"
+							type="shardsType">
+						</xsd:element>
+						<xsd:element name="index" minOccurs="1" maxOccurs="1"
+							type="indexType">
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="pre-scanning-annotation"
+						default="true" type="xsd:boolean" />
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="shardsType">
+		<xsd:sequence>
+			<xsd:element ref="datasources" minOccurs="1" maxOccurs="1"></xsd:element>
+			<xsd:element ref="segment-tables" minOccurs="0"
+				maxOccurs="1"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="datasources">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[ 配置分片所用的数据源  ]]></xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="datasource" minOccurs="1" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:attribute name="key" use="required">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:integer">
+									<xsd:minInclusive value="1" />
+									<xsd:maxInclusive value="1024" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="ref" type="xsd:string" use="required"></xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="segment-tables">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[ 用于需要在同一个数据源再分表的情况,分出来的表名如demo_1,demo_2...demo_n  ]]></xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="segment-table" minOccurs="1"
+					maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:attribute name="name" use="required" type="xsd:string">
+							<xsd:annotation>
+								<xsd:documentation><![CDATA[ 表示要分表的表名  ]]></xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="count" use="required">
+							<xsd:annotation>
+								<xsd:documentation><![CDATA[ 表示要分表的个数  ]]></xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:integer">
+									<xsd:minInclusive value="1" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="indexType">
+		<xsd:sequence>
+			<xsd:element name="datasource" minOccurs="1" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:attribute name="ref" type="xsd:string" use="required"></xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="table" minOccurs="1" maxOccurs="unbounded"
+				type="tableType">
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="cache" type="xsd:boolean" default="true">
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name="tableType">
+		<xsd:sequence>
+			<xsd:element name="column" minOccurs="1" maxOccurs="unbounded"
+				type="columnType">
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name="columnType">
+		<xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="type" default="string">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="string" />
+					<xsd:enumeration value="text" />
+					<xsd:enumeration value="integer" />
+					<xsd:enumeration value="int" />
+					<xsd:enumeration value="long" />
+					<xsd:enumeration value="short" />
+					<xsd:enumeration value="byte" />
+					<xsd:enumeration value="binary" />
+					<xsd:enumeration value="flat" />
+					<xsd:enumeration value="double" />
+					<xsd:enumeration value="big_decimal" />
+					<xsd:enumeration value="boolean" />
+					<xsd:enumeration value="date" />
+					<xsd:enumeration value="time" />
+					<xsd:enumeration value="timestamp" />
+					<xsd:enumeration value="calendar" />
+					<xsd:enumeration value="calendar_date" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="length" type="xsd:int" default="300"></xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:element name="dao" type="daoType">
+	</xsd:element>
+	<xsd:complexType name="daoType">
+		<xsd:sequence>
+			<xsd:element name="scan" minOccurs="1" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[ The comma-separated list of packages to scan for annotated components. ]]>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="include-filter" type="filterType"
+							maxOccurs="unbounded" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[ Controls which eligible types to include for component scanning. ]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="exclude-filter" type="filterType"
+							maxOccurs="unbounded" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[ Controls which eligible types to exclude for component scanning. ]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="base-package" type="xsd:string"
+						use="required"></xsd:attribute>
+					<xsd:attribute name="resource-pattern" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>
+							<![CDATA[
+							Controls the class files eligible for component detection. Defaults to "**/*.class", the recommended value.
+							Consider use of the include-filter and exclude-filter elements for a more fine-grained approach.
+							]]>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="filterType">
+		<xsd:attribute name="type" use="required">
+			<xsd:annotation>
+				<xsd:documentation>
+					<![CDATA[ Controls the type of filtering to apply to the expression. "annotation" indicates an annotation to be present at the type level in target components; "assignable" indicates a class (or interface) that the target components are assignable to (extend/implement); "aspectj" indicates an AspectJ type pattern expression to be matched by the target components; "regex" indicates a regex pattern to be matched by the target components' class names; "custom" indicates a custom implementation of the org.springframework.core.type.TypeFilter interface. Note: This attribute will not be inherited by child bean definitions. Hence, it needs to be specified per concrete bean definition. ]]>
+				</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="annotation" />
+					<xsd:enumeration value="assignable" />
+					<xsd:enumeration value="aspectj" />
+					<xsd:enumeration value="regex" />
+					<xsd:enumeration value="custom" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="expression" type="xsd:string" use="required">
+			<xsd:annotation>
+				<xsd:documentation>
+					<![CDATA[ Indicates the filter expression, the type of which is indicated by "type". ]]>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.autonavi.com/schema/configCenter"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.autonavi.com/schema/configCenter"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:element name="config">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="base" minOccurs="1" maxOccurs="1"></xsd:element>
+				<xsd:element ref="biz" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="id" type="xsd:string" default="ccConfig">
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="base">
+		<xsd:complexType>
+			<xsd:attribute name="ref" type="xsd:string">
+			</xsd:attribute>
+			<xsd:attribute name="configJson" type="xsd:string">
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="biz">
+		<xsd:complexType>
+			<xsd:attribute name="ref" type="xsd:string">
+			</xsd:attribute>
+			<xsd:attribute name="configJson" type="xsd:string">
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

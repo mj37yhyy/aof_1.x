@@ -1,0 +1,3 @@
+http\://www.autonavi.com/schema/tx=autonavi.online.framework.config.TxNamespaceHandler
+http\://www.autonavi.com/schema/shard=autonavi.online.framework.config.ShardNamespaceHandler
+http\://www.autonavi.com/schema/configCenter=autonavi.online.framework.config.ConfigCenterNamespaceHandler

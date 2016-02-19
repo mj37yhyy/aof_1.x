@@ -1,0 +1,177 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<script type="text/javascript" src="resources/jquery-2.1.1.min.js"></script>
+<script type="text/javascript"
+	src="resources/jquery.ztree.all-3.5.min.js"></script>
+<link rel="stylesheet" href="resources/zTreeStyle.css" type="text/css"></link>
+<script type="text/javascript">
+	var zTree;
+	var demoIframe;
+
+	var setting = {
+		view : {
+			dblClickExpand : false,
+			showLine : true,
+			selectedMulti : false
+		},
+		data : {
+			simpleData : {
+				enable : true,
+				idKey : "id",
+				pIdKey : "pId",
+				rootPId : ""
+			}
+		},
+		callback : {
+			beforeClick : function(treeId, treeNode) {
+				var zTree = $.fn.zTree.getZTreeObj("tree");
+				if (treeNode.isParent) {
+					zTree.expandNode(treeNode);
+					return false;
+				} else {
+					demoIframe.attr("src", treeNode.file + ".html");
+					return true;
+				}
+			},
+			onClick : function(event, treeId, treeNode, clickFlag) {
+				var node = $("#node");
+				if(treeNode.name=='ds1' || treeNode.name=='ds2')
+					node.val('class=com.mchange.v2.c3p0.ComboPooledDataSource&driverClass=com.mysql.jdbc.Driver&……');
+				else if(treeNode.name=='#1') node.val('ds1');
+				else if(treeNode.name=='#2') node.val('ds2');
+				else if(treeNode.name=='demo') node.val('count=100');
+				else if(treeNode.name=='username') node.val('count=50');
+				else if(treeNode.name=='ds') node.val('ds=ds1');
+				else if(treeNode.name=='demo_index') node.val('columnName=name&columnType=string&columnLength=100');
+				else if(treeNode.name=='username_index') node.val('columnName=name&columnType=string&columnLength=100,columnName=sex&columnType=int&columnLength=11');
+				
+			
+			}
+		}
+	};
+	var zNodes = [ {
+		id : 1,
+		pId : 0,
+		name : "/",
+		open : true
+	}, {
+		id : 11,
+		pId : 1,
+		name : "aof",
+		open : true
+	}, {
+		id : 111,
+		pId : 11,
+		name : "mz",
+		open : true
+	}, {
+		id : 1111,
+		pId : 111,
+		name : "base",
+		open : false
+	}, {
+		id : 11111,
+		pId : 1111,
+		name : "dss",
+		open : false
+	}, {
+		id : 111111,
+		pId : 11111,
+		name : "ds1",
+		open : false
+	}, {
+		id : 111112,
+		pId : 11111,
+		name : "ds2",
+		open : false
+	}, {
+		id : 11112,
+		pId : 1111,
+		name : "shard",
+		open : false
+	}, {
+		id : 111121,
+		pId : 11112,
+		name : "dss",
+		open : false
+	}, {
+		id : 1111211,
+		pId : 111121,
+		name : "#1",
+		open : false
+	}, {
+		id : 1111212,
+		pId : 111121,
+		name : "#2",
+		open : false
+	}, {
+		id : 111122,
+		pId : 11112,
+		name : "segment-tables",
+		open : false
+	}, {
+		id : 1111221,
+		pId : 111122,
+		name : "demo",
+		open : false
+	}, {
+		id : 1111222,
+		pId : 111122,
+		name : "username",
+		open : false
+	}, {
+		id : 111123,
+		pId : 11112,
+		name : "index",
+		open : false
+	}, {
+		id : 1111231,
+		pId : 111123,
+		name : "ds",
+		open : false
+	}, {
+		id : 1111232,
+		pId : 111123,
+		name : "tables",
+		open : false
+	}, {
+		id : 11112321,
+		pId : 1111232,
+		name : "demo_index",
+		open : false
+	}, {
+		id : 11112321,
+		pId : 1111232,
+		name : "username_index",
+		open : false
+	}, {
+		id : 1112,
+		pId : 111,
+		name : "biz",
+		open : false
+	}, {
+		id : 11121,
+		pId : 1112,
+		name : "biz1",
+		open : false
+	} ];
+
+	$(function() {
+		var t = $("#tree");
+		t = $.fn.zTree.init(t, setting, zNodes);
+		demoIframe = $("#testIframe");
+		demoIframe.bind("load", loadReady);
+		var zTree = $.fn.zTree.getZTreeObj("tree");
+		zTree.selectNode(zTree.getNodeByParam("id", 101));
+
+	});
+</script>
+</head>
+<body>
+	<div id="tree" class="ztree" style="width:300px;height:400px; overflow:auto;float:left;"></div>
+	<textarea id="node"
+		style="width:300px;height:300px; overflow:auto; float:left; border:1px solid red;"></textarea>
+</body>
+</html>

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>autonavi</groupId>
 	<artifactId>online.framework.core</artifactId>
-	<version>1.1.10-RELEASE</version>
+	<version>1.1.11-RELEASE</version>
 	<packaging>jar</packaging>
 	<name>online.framework.service</name>
 	<url>http://maven.apache.org</url>
@@ -293,12 +293,12 @@
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>online.framework.core</name>
-			<url>http://123.57.213.13:8081/nexus/content/repositories/snapshots/</url>
+			<url>http://192.168.120.23:8081/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 		<repository>
 			<id>release</id>
 			<name>online.framework.core</name>
-			<url>http://123.57.213.13:8081/nexus/content/repositories/releases/</url>
+			<url>http://192.168.120.23:8081/nexus/content/repositories/releases/</url>
 		</repository>
 	</distributionManagement>
 	<build>
